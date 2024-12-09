@@ -1,0 +1,30 @@
+{
+  "name": "kokon",
+  "version": "1.0.0",
+  "description": "A lightweight macOS app for extracting archive files, with a focus on RAR format support. Simple, fast, and reliable! 📦✨",
+  "keywords": [
+    "rar",
+    "unrar",
+    "extract",
+    "archive",
+    "macos",
+    "electron",
+    "app"
+  ],
+  "main": "src/main.js",
+  "author": "Anton Cherninanu <anton@chernianu.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "prettier": "3.4.2"
+  },
+  "dependencies": {
+    "node-unrar-js": "^2.0.2"
+  }
+}
