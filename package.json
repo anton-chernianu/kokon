@@ -11,16 +11,25 @@
     "electron",
     "app"
   ],
-  "main": "src/main.js",
+  "main": "src/app.js",
   "author": "Anton Cherninanu <anton@chernianu.com>",
   "license": "MIT",
   "scripts": {
-    "start": "electron .",
-    "build": "electron-builder",
-    "format": "prettier --write ."
+    "start:electron": "electron .",
+    "start:vite": "vite",
+    "start": "concurrently \"npm run start:vite\" \"npm run start:electron\"",
+    "format": "prettier --write .",
+    "build:ui": "vite build",
+    "build": "npm run build:ui && electron-builder"
   },
   "build": {
+    "asar": true,
     "appId": "com.antony.kokon",
+    "files": [
+      "dist/frontend/**/*",
+      "src/app.js",
+      "src/preload.js"
+    ],
     "mac": {
       "target": [
         {
@@ -43,11 +52,16 @@
     }
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.0",
     "electron": "^33.2.1",
     "electron-builder": "^25.1.8",
-    "prettier": "3.4.2"
+    "prettier": "3.4.2",
+    "vite": "^6.0.3"
   },
   "dependencies": {
-    "node-unrar-js": "^2.0.2"
+    "node-unrar-js": "^2.0.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }
