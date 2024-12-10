@@ -13,4 +13,9 @@ export default defineConfig({
         outDir: '../dist/frontend',
         emptyOutDir: true,
     },
+    resolve: {
+        alias: {
+            '@': '/src'
+        }
+    }
 });
