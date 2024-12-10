@@ -1,4 +1,12 @@
+// Core
 import React, { useState } from "react";
+
+// Components
+import { Toolbar } from "./components/Toolbar";
+import { Menu } from "./components/Menu";
+
+// Styles
+import "../assets/app.scss";
 
 function App() {
   const [filePath, setFilePath] = useState("");
@@ -20,18 +28,33 @@ function App() {
     }
   };
 
+  const handleRemoveFile = async () => {
+    setFilePath("");
+  };
+
   return (
-    <div>
-      <p>v2</p>
-      <h1>Select and Extract RAR File</h1>
-      <button onClick={handleSelectFile}>Select File</button>
-      {filePath && (
-        <>
-          <p>Selected file: {filePath}</p>
-          <button onClick={handleExtractFile}>Extract File</button>
-        </>
-      )}
-      {message && <p>{message}</p>}
+    <div className={"app"}>
+      <div className={"app__toolbar"}>
+        <Toolbar />
+      </div>
+      <div className={"app__content"}>
+        <div className={"app__menu"}>
+          <Menu
+            onSelect={handleSelectFile}
+            onExtract={handleExtractFile}
+            onRemove={handleRemoveFile}
+          />
+        </div>
+        <h1>Select and Extract RAR File</h1>
+        <button onClick={handleSelectFile}>Select File</button>
+        {filePath && (
+          <>
+            <p>Selected file: {filePath}</p>
+            <button onClick={handleExtractFile}>Extract File</button>
+          </>
+        )}
+        {message && <p>{message}</p>}
+      </div>
     </div>
   );
 }

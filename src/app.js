@@ -11,12 +11,15 @@ const isDev = !app.isPackaged;
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 600,
+    height: 400,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,
     },
+    titleBarStyle: "hidden",
+    resizable: false,
+    fullscreenable: false,
   });
 
   const startUrl = isDev
@@ -26,7 +29,7 @@ app.on("ready", () => {
   mainWindow.loadURL(startUrl);
 
   if (isDev) {
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
   }
 
   ipcMain.handle("dialog:openFile", async () => {
@@ -54,13 +57,6 @@ app.on("ready", () => {
 
       return `Files extracted to: ${outputDir}`;
 
-      // const list = extractor.getFileList();
-      //
-      // const fileGenerator = list.fileHeaders;
-      //
-      // for (const file of fileGenerator) {
-      //     console.log(file);
-      // }
     } catch (err) {
       return `Error: ${err.message}`;
     }

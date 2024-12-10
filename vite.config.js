@@ -18,4 +18,14 @@ export default defineConfig({
       "@": "/src",
     },
   },
+  css: {
+    modules: {
+      scopeBehaviour: "local",
+    },
+    preprocessorOptions: {
+      scss: {
+        // additionalData: `@import "@/styles/variables.scss";`
+      },
+    },
+  },
 });

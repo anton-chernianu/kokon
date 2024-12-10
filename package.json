@@ -36,6 +36,7 @@
   "dependencies": {
     "node-unrar-js": "^2.0.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "sass": "^1.82.0"
   }
 }
