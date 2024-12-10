@@ -25,7 +25,9 @@ app.on("ready", () => {
 
   mainWindow.loadURL(startUrl);
 
-  mainWindow.webContents.openDevTools();
+  if (isDev) {
+    mainWindow.webContents.openDevTools();
+  }
 
   ipcMain.handle("dialog:openFile", async () => {
     const result = await dialog.showOpenDialog(mainWindow, {
