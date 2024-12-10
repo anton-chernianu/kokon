@@ -1,6 +1,9 @@
 {
   "name": "kokon",
+  "main": "src/app.js",
+  "license": "MIT",
   "version": "1.0.0",
+  "author": "Anton Cherninanu <anton@chernianu.com>",
   "description": "A lightweight macOS app for extracting archive files, with a focus on RAR format support. Simple, fast, and reliable! 📦✨",
   "keywords": [
     "rar",
@@ -11,45 +14,13 @@
     "electron",
     "app"
   ],
-  "main": "src/app.js",
-  "author": "Anton Cherninanu <anton@chernianu.com>",
-  "license": "MIT",
   "scripts": {
+    "start": "concurrently \"npm run start:vite\" \"npm run start:electron\"",
     "start:electron": "electron .",
     "start:vite": "vite",
-    "start": "concurrently \"npm run start:vite\" \"npm run start:electron\"",
-    "format": "prettier --write .",
+    "build": "npm run build:ui && electron-builder -c electron-builder.config.json",
     "build:ui": "vite build",
-    "build": "npm run build:ui && electron-builder"
-  },
-  "build": {
-    "asar": true,
-    "appId": "com.antony.kokon",
-    "files": [
-      "dist/frontend/**/*",
-      "src/app.js",
-      "src/preload.js"
-    ],
-    "mac": {
-      "target": [
-        {
-          "target": "dmg",
-          "arch": [
-            "arm64"
-          ]
-        }
-      ],
-      "category": "public.app-category.utilities",
-      "icon": "assets/logo.icns"
-    },
-    "dmg": {
-      "icon": "assets/logo.icns",
-      "iconSize": 128,
-      "window": {
-        "width": 520,
-        "height": 500
-      }
-    }
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@types/react": "^19.0.1",
