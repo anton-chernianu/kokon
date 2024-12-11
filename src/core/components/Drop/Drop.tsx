@@ -47,7 +47,7 @@ export const Drop = (props: DropPropsType) => {
     const fileTypeXRar = "application/x-rar";
     const fileTypeXRarCompressed = "application/x-rar-compressed";
 
-    if (file.type !== fileTypeXRar && file.type !== fileTypeXRarCompressed) {
+    if (!file.name.toLowerCase().endsWith(".rar")) {
       setError("Only RAR files are supported");
       return;
     }
