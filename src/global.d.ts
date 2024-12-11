@@ -3,6 +3,7 @@ declare global {
     electronAPI: {
       selectFile: () => Promise<string[]>;
       extractFile: (filePath: string) => Promise<string>;
+      startDrag: (file: File) => Promise<string>;
     };
   }
 

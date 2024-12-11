@@ -4,6 +4,7 @@ import React, { useState } from "react";
 // Components
 import { Toolbar } from "./components/Toolbar";
 import { Menu } from "./components/Menu";
+import { Drop } from "./components/Drop";
 
 // Styles
 import "../assets/app.scss";
@@ -32,6 +33,10 @@ function App() {
     setFilePath("");
   };
 
+  const handleFileDrop = async (path: string) => {
+    console.log(path, 'handleFileDrop');
+  }
+
   return (
     <div className={"app"}>
       <div className={"app__toolbar"}>
@@ -40,20 +45,27 @@ function App() {
       <div className={"app__content"}>
         <div className={"app__menu"}>
           <Menu
-            onSelect={handleSelectFile}
-            onExtract={handleExtractFile}
-            onRemove={handleRemoveFile}
+              onSelect={handleSelectFile}
+              onExtract={handleExtractFile}
+              onRemove={handleRemoveFile}
           />
         </div>
-        <h1>Select and Extract RAR File</h1>
-        <button onClick={handleSelectFile}>Select File</button>
-        {filePath && (
-          <>
-            <p>Selected file: {filePath}</p>
-            <button onClick={handleExtractFile}>Extract File</button>
-          </>
-        )}
-        {message && <p>{message}</p>}
+        <div className={"app__filepath"}>
+
+        </div>
+        <div className={"app__drop"}>
+          <Drop onFileDrop={handleFileDrop}/>
+        </div>
+
+        {/*<h1>Select and Extract RAR File</h1>*/}
+        {/*<button onClick={handleSelectFile}>Select File</button>*/}
+        {/*{filePath && (*/}
+        {/*  <>*/}
+        {/*    <p>Selected file: {filePath}</p>*/}
+        {/*    <button onClick={handleExtractFile}>Extract File</button>*/}
+        {/*  </>*/}
+        {/*)}*/}
+        {/*{message && <p>{message}</p>}*/}
       </div>
     </div>
   );

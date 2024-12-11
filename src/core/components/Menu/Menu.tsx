@@ -28,13 +28,27 @@ export const Menu = (props: MenuPropsType) => {
   return (
     <div className={st.menu}>
       <button type={"button"} className={st["menu__button"]} onClick={handleSelect}>
-        <AddIcon />
+        <span className={st["menu__button-icon"]}>
+          <AddIcon />
+        </span>
+        <span className={st["menu__button-name"]}>Add</span>
       </button>
-      <button type={"button"} className={st["menu__button"]} onClick={handleExtract}>
-        <ExtractIcon />
+      <button
+        type={"button"}
+        className={st["menu__button"]}
+        onClick={handleExtract}
+        disabled={true}
+      >
+        <span className={st["menu__button-icon"]}>
+          <ExtractIcon />
+        </span>
+        <span className={st["menu__button-name"]}>Extract</span>
       </button>
-      <button type={"button"} className={st["menu__button"]} onClick={handleRemove}>
-        <RemoveIcon />
+      <button type={"button"} className={st["menu__button"]} onClick={handleRemove} disabled={true}>
+        <span className={st["menu__button-icon"]}>
+          <RemoveIcon />
+        </span>
+        <span className={st["menu__button-name"]}>Reset</span>
       </button>
     </div>
   );

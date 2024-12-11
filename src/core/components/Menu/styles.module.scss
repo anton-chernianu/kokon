@@ -1,3 +1,49 @@
 .menu {
+  display: flex;
+  gap: 10px;
+
+  &__button {
+    width: 80px;
+    height: 80px;
+    border: none;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: 0.15s ease-in-out all;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      background: linear-gradient(145deg, #f0f0f0, #ffffff);
+      box-shadow: 10px 20px 30px rgba(188, 188, 188, 0.47),
+      -0px -20px 60px #ffffff;
+    }
+
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.5;
+      background: linear-gradient(145deg, #f0f0f0, #ffffff);
+      box-shadow: 10px 20px 30px rgba(188, 188, 188, 0.3);
+
+      .menu__button-icon {
+        color: #bcbcbc;
+      }
+    }
+  }
+
+  &__button-icon {
+    color: #4c7ee7;
+    margin-bottom: 5px;
+  }
+
+  &__button-name {
+    font-size: 12px;
+    font-weight: 500;
+  }
 
 }
