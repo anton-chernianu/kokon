@@ -11,11 +11,11 @@ const isDev = !app.isPackaged;
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({
-    width: 600,
-    height: 480,
+    // width: 600,
+    // height: 480,
 
-    // width: 900,
-    // height: 900,
+    width: 900,
+    height: 900,
 
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
@@ -33,9 +33,9 @@ app.on("ready", () => {
 
   mainWindow.loadURL(startUrl);
 
-  // if (isDev) {
-  //   mainWindow.webContents.openDevTools();
-  // }
+  if (isDev) {
+    mainWindow.webContents.openDevTools();
+  }
 
   ipcMain.handle("dialog:openFile", async () => {
     const result = await dialog.showOpenDialog(mainWindow, {
