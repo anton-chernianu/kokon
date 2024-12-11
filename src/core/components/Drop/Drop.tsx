@@ -10,10 +10,11 @@ import st from "./styles.module.scss";
 
 type DropPropsType = {
   onFileDrop: (path: string) => void;
+  onBrowseFile?: () => void;
 };
 
 export const Drop = (props: DropPropsType) => {
-  const { onFileDrop } = props;
+  const { onFileDrop, onBrowseFile } = props;
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState("");
 
@@ -35,18 +36,30 @@ export const Drop = (props: DropPropsType) => {
     e.stopPropagation();
     setIsDragging(false);
 
-    console.log(e.dataTransfer.files[0], "e");
-
     const file = e.dataTransfer.files[0];
+
+    if (!file) {
+      console.log("No file found");
+      setError("No file found");
+      return;
+    }
+
+    const fileTypeXRar = "application/x-rar";
+    const fileTypeXRarCompressed = "application/x-rar-compressed";
+
+    if (file.type !== fileTypeXRar && file.type !== fileTypeXRarCompressed) {
+      setError("Only RAR files are supported");
+      return;
+    }
+
     const path = await window.electronAPI.startDrag(file);
 
-    console.log(path, "path");
-
-
+    onFileDrop?.(path);
+    setError("");
   };
 
   const handleBrowseFile = () => {
-    console.log("test");
+    onBrowseFile?.();
   };
 
   const dropClasses = cn(st.drop, {
@@ -65,12 +78,14 @@ export const Drop = (props: DropPropsType) => {
         <div className={st["drop__icon"]}>
           <CloudIcon />
         </div>
-        <div className={st["drop__title"]}>Drag & Drop to Archive File</div>
+        <div className={st["drop__title"]}>Drag & Drop to RAR File</div>
         <div className={st["drop__or"]}>or</div>
         <div className={st["drop__action"]}>
           <button className={st["drop__action-button"]} onClick={handleBrowseFile}>
             Browse File
           </button>
+
+          {error && <div className={st["drop__error"]}>{error}</div>}
         </div>
       </div>
     </div>

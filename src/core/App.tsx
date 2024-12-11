@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import { Toolbar } from "./components/Toolbar";
 import { Menu } from "./components/Menu";
 import { Drop } from "./components/Drop";
+import { Path } from "./components/Path";
+import { FileManager } from "./components/FileManager";
 
 // Styles
 import "../assets/app.scss";
@@ -15,10 +17,9 @@ function App() {
 
   const handleSelectFile = async () => {
     const filePaths = await window.electronAPI.selectFile();
+
     if (filePaths.length > 0) {
       setFilePath(filePaths[0]);
-    } else {
-      setFilePath("No file selected.");
     }
   };
 
@@ -29,13 +30,13 @@ function App() {
     }
   };
 
-  const handleRemoveFile = async () => {
+  const handleResetFile = async () => {
     setFilePath("");
   };
 
   const handleFileDrop = async (path: string) => {
-    console.log(path, 'handleFileDrop');
-  }
+    setFilePath(path);
+  };
 
   return (
     <div className={"app"}>
@@ -45,27 +46,35 @@ function App() {
       <div className={"app__content"}>
         <div className={"app__menu"}>
           <Menu
-              onSelect={handleSelectFile}
-              onExtract={handleExtractFile}
-              onRemove={handleRemoveFile}
+            onSelect={handleSelectFile}
+            onExtract={handleExtractFile}
+            onRemove={handleResetFile}
+            filePath={filePath}
           />
         </div>
-        <div className={"app__filepath"}>
 
-        </div>
-        <div className={"app__drop"}>
-          <Drop onFileDrop={handleFileDrop}/>
-        </div>
+        {!filePath && (
+          <div className={"app__drop"}>
+            <Drop onFileDrop={handleFileDrop} onBrowseFile={handleSelectFile} />
+          </div>
+        )}
 
-        {/*<h1>Select and Extract RAR File</h1>*/}
-        {/*<button onClick={handleSelectFile}>Select File</button>*/}
-        {/*{filePath && (*/}
-        {/*  <>*/}
-        {/*    <p>Selected file: {filePath}</p>*/}
-        {/*    <button onClick={handleExtractFile}>Extract File</button>*/}
-        {/*  </>*/}
-        {/*)}*/}
-        {/*{message && <p>{message}</p>}*/}
+        {filePath && (
+          <>
+            <div className={"app__filepath"}>
+              <Path filePath={filePath} />
+            </div>
+            <div className={"app__manager"}>
+              <FileManager filePath={filePath} />
+            </div>
+          </>
+        )}
+
+        {message && (
+          <div className={"app__message"}>
+            <p>{message}</p>
+          </div>
+        )}
       </div>
     </div>
   );

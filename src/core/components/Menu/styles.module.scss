@@ -1,6 +1,14 @@
 .menu {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+
+  &__left {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__right {
+  }
 
   &__button {
     width: 80px;
@@ -12,7 +20,10 @@
     justify-content: center;
     border-radius: 14px;
     cursor: pointer;
-    transition: 0.15s ease-in-out all;
+    background: linear-gradient(145deg, #f0f0f0, #ffffff);
+    box-shadow: 10px 20px 30px rgba(217, 217, 217, 0.47),
+    -0px -20px 60px #ffffff;
+    transition: 0.15s ease-in-out background-color, 0.15s ease-in-out box-shadow;
 
     &:focus {
       outline: none;
