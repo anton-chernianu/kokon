@@ -2,6 +2,7 @@
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("path");
 const fs = require("fs");
+const fileTypeUtils = require("file-type");
 
 // Utils
 const { createExtractorFromFile } = require("node-unrar-js");
@@ -47,8 +48,7 @@ app.on("ready", () => {
 
   ipcMain.handle("extract-rar", async (_, filePath) => {
     try {
-      const outputDir = path.join(path.dirname(filePath), path.basename(filePath, ".rar"));
-
+      const outputDir = path.join(path.dirname(filePath), path.parse(filePath).name);
       if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir, { recursive: true });
       }
@@ -67,7 +67,11 @@ app.on("ready", () => {
   });
 
   ipcMain.handle("file:drag", async (_, filePath) => {
-    console.log(filePath);
-    return filePath;
+    const fileType = (await fileTypeUtils.fromFile(filePath)).mime;
+
+    return {
+      type: fileType,
+      path: filePath,
+    };
   });
 });

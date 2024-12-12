@@ -47,12 +47,12 @@ export const Drop = (props: DropPropsType) => {
     const fileTypeXRar = "application/x-rar";
     const fileTypeXRarCompressed = "application/x-rar-compressed";
 
-    if (file.type !== fileTypeXRar && file.type !== fileTypeXRarCompressed) {
+    const { path, type } = await window.electronAPI.startDrag(file);
+
+    if (type !== fileTypeXRarCompressed && type !== fileTypeXRar) {
       setError("Only RAR files are supported");
       return;
     }
-
-    const path = await window.electronAPI.startDrag(file);
 
     onFileDrop?.(path);
     setError("");
