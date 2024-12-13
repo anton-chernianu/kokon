@@ -12,12 +12,8 @@ const isDev = !app.isPackaged;
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({
-    // width: 600,
-    // height: 480,
-
-    width: 900,
-    height: 900,
-
+    width: 650,
+    height: 500,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       nodeIntegration: true,
@@ -35,7 +31,9 @@ app.on("ready", () => {
   mainWindow.loadURL(startUrl);
 
   if (isDev) {
-    mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools({
+        mode: "detach",
+    });
   }
 
   ipcMain.handle("dialog:openFile", async () => {
@@ -61,6 +59,31 @@ app.on("ready", () => {
       [...extractor.extract().files];
 
       return `Files extracted to: ${outputDir}`;
+    } catch (err) {
+      return `Error: ${err.message}`;
+    }
+  });
+
+  ipcMain.handle("file-list-rar", async (_, filePath) => {
+    try {
+      const outputDir = path.join(path.dirname(filePath), path.parse(filePath).name);
+      if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+      }
+
+      const extractor = await createExtractorFromFile({
+        filepath: filePath,
+      });
+
+      const list = extractor.getFileList();
+      const listArcHeader = list.arcHeader;
+      const fileHeaders = [...list.fileHeaders];
+
+
+      return {
+        header: listArcHeader,
+        files: fileHeaders
+      };
     } catch (err) {
       return `Error: ${err.message}`;
     }
