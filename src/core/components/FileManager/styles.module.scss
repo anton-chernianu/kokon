@@ -5,15 +5,17 @@
   box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
   box-sizing: border-box;
 
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-radius: 14px;
+  overflow: hidden;
+
 
   &__head {
     display: flex;
     font-size: 12px;
-    border: 1px solid #e0e0e0;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border-bottom: 1px solid #e0e0e0;
+    //border-top-left-radius: 8px;
+    //border-top-right-radius: 8px;
+    padding: 4px;
   }
 
   &__head-name {
@@ -43,6 +45,26 @@
     overflow: hidden;
     overflow-y: auto;
     height: 250px;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #3b84d9;
+    }
+
+
+
   }
 
   &__table-item {
@@ -94,8 +116,8 @@
 
   &__table-item-sub {
     padding-left: 5px;
+    margin-bottom: 40px;
 
-    //margin-left: 5px;
     //
     //.file-manager__table-item-name {
     //  padding-left: 20px;
