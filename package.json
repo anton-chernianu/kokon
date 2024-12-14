@@ -20,7 +20,8 @@
     "start:vite": "vite",
     "build": "npm run build:ui && electron-builder -c electron-builder.config.json",
     "build:ui": "vite build",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@types/react": "^19.0.1",
@@ -29,6 +30,8 @@
     "concurrently": "^9.1.0",
     "electron": "^33.2.1",
     "electron-builder": "^25.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
     "prettier": "3.4.2",
     "typescript": "^5.7.2",
     "vite": "^6.0.3"
@@ -41,5 +44,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sass": "^1.82.0"
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
   }
 }
