@@ -7,6 +7,7 @@ import { Menu } from "./components/Menu";
 import { Drop } from "./components/Drop";
 import { Path } from "./components/Path";
 import { FileManager } from "./components/FileManager";
+import { ProgressBar } from "./components/ProgressBar";
 
 // Styles
 import "../assets/app.scss";
@@ -75,6 +76,8 @@ function App() {
             <p>{message}</p>
           </div>
         )}
+
+        <ProgressBar />
       </div>
     </div>
   );

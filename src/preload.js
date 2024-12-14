@@ -8,4 +8,13 @@ contextBridge.exposeInMainWorld("electronAPI", {
     const path = webUtils.getPathForFile(file);
     return ipcRenderer.invoke("file:drag", path);
   },
+  on: (channel, callback) => {
+    const validChannels = ["extract-progress"];
+    if (validChannels.includes(channel)) {
+      ipcRenderer.on(channel, callback);
+    }
+  },
+  removeListener: (channel, callback) => {
+    ipcRenderer.removeListener(channel, callback);
+  },
 });

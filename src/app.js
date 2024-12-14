@@ -3,6 +3,7 @@ const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("path");
 const fs = require("fs");
 const fileTypeUtils = require("file-type");
+const { Worker } = require("worker_threads");
 
 // Utils
 const { createExtractorFromFile } = require("node-unrar-js");
@@ -44,24 +45,35 @@ app.on("ready", () => {
     return result.filePaths;
   });
 
-  ipcMain.handle("extract-rar", async (_, filePath) => {
-    try {
-      const outputDir = path.join(path.dirname(filePath), path.parse(filePath).name);
-      if (!fs.existsSync(outputDir)) {
-        fs.mkdirSync(outputDir, { recursive: true });
-      }
+  ipcMain.handle("extract-rar", async (event, filePath) => {
 
-      const extractor = await createExtractorFromFile({
-        filepath: filePath,
-        targetPath: outputDir,
+    return new Promise((resolve, reject) => {
+      const worker = new Worker(path.join(__dirname, "worker/extractorWorker.js"), {
+        workerData: { filePath },
       });
 
-      [...extractor.extract().files];
+      worker.on("message", (message) => {
+        if (message.error) {
+          reject(message.error);
+        } else if (message.done) {
+          resolve(`Files extracted to: ${message.outputDir}`);
+        } else {
+          event.sender.send("extract-progress", {
+            processed: message.processed,
+            total: message.total,
+            currentFile: message.currentFile,
+            nextFile: message.nextFile,
+          });
+        }
+      });
 
-      return `Files extracted to: ${outputDir}`;
-    } catch (err) {
-      return `Error: ${err.message}`;
-    }
+      worker.on("error", (error) => reject(error));
+      worker.on("exit", (code) => {
+        if (code !== 0) reject(new Error(`Worker stopped with exit code ${code}`));
+      });
+    });
+
+
   });
 
   ipcMain.handle("file-list-rar", async (_, filePath) => {
