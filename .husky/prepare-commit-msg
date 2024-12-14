@@ -1,6 +1,0 @@
-#!/bin/sh
-
-if [ -z "$2" ] || [ "$2" != "message" ]; then
-  exec < /dev/tty && npx cz --no-verify
-  exit 1
-fi
