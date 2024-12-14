@@ -21,7 +21,8 @@
     "build": "npm run build:ui && electron-builder -c electron-builder.config.json",
     "build:ui": "vite build",
     "format": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "cz": "cz"
   },
   "devDependencies": {
     "@types/react": "^19.0.1",
@@ -44,6 +45,11 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sass": "^1.82.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-emoji"
+    }
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,css,scss,md}": [
