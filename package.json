@@ -22,7 +22,7 @@
     "build:ui": "vite build",
     "format": "prettier --write .",
     "prepare": "husky install",
-    "cz": "npm run cz"
+    "cz": "cz"
   },
   "devDependencies": {
     "@types/react": "^19.0.1",
@@ -48,7 +48,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-emoji"
+      "path": "cz-emoji"
     }
   },
   "lint-staged": {
