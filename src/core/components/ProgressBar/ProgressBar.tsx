@@ -31,15 +31,23 @@ export const ProgressBar = () => {
     window.electronAPI.on("extract-progress", handleProgress);
 
     return () => {
+
+
       window.electronAPI.removeListener("extract-progress", handleProgress);
     };
   }, []);
 
   return (
+
+
+
+
     <div className={st["progress-container"]}>
       <div className={st["progress-bar"]} style={{ width: `${progress}%` }}>
-        <span className={st["progress-text"]}>{progress}%</span>
+
+        <span className={st["progress-text"]}>123 {progress}%</span>
       </div>
+
       {currentFile && <p className={st["current-file"]}>Extracting: {currentFile}</p>}
     </div>
   );
