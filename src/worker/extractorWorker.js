@@ -17,7 +17,6 @@ const { createExtractorFromFile } = require("node-unrar-js");
       targetPath: outputDir,
     });
 
-    // Преобразуем fileHeaders в массив
     const fileHeadersArray = Array.from(extractor.getFileList().fileHeaders);
 
     const totalFiles = fileHeadersArray.length;
@@ -29,10 +28,10 @@ const { createExtractorFromFile } = require("node-unrar-js");
       extractedCount += 1;
 
       parentPort.postMessage({
-        processed: extractedCount, // Сколько файлов обработано
-        total: totalFiles, // Всего файлов
-        currentFile: file.fileHeader.name, // Текущий файл
-        nextFile: nextFile, // Следующий файл
+        processed: extractedCount,
+        total: totalFiles,
+        currentFile: file.fileHeader.name,
+        nextFile: nextFile,
       });
     }
 

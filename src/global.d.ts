@@ -10,6 +10,8 @@ declare global {
         type: string;
         path: string;
       }>;
+      on: (channel: string, listener: (event: any, ...args: any[]) => void) => void;
+      removeListener: (channel: string, listener: (event: any, ...args: any[]) => void) => void;
     };
   }
 

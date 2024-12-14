@@ -6,14 +6,25 @@ export const ProgressBar = () => {
   const [currentFile, setCurrentFile] = useState("");
 
   useEffect(() => {
-    const handleProgress = (_, data) => {
+    const handleProgress = (
+      _: unknown,
+      data: {
+        processed: number;
+        total: number;
+        currentFile: string;
+        nextFile: string;
+      },
+    ) => {
       console.log(data, "data");
 
-      if (data?.progress !== undefined && !isNaN(data.progress)) {
-        setProgress(data.progress);
-      }
-      if (data?.currentFile) {
-        setCurrentFile(data.currentFile);
+      const progress = (data.processed / data.total) * 100;
+      const progressFixed = Math.round(progress * 100) / 100;
+
+      setCurrentFile(data.currentFile);
+      setProgress(progressFixed);
+
+      if (progressFixed === 100) {
+        setCurrentFile("");
       }
     };
 
