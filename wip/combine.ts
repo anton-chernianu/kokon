@@ -8,11 +8,7 @@ class FileCombiner {
     this.marker = marker;
   }
 
-  public combineFiles(
-      imagePath: string,
-      archivePath: string,
-      outputFilePath: string
-  ): void {
+  public combineFiles(imagePath: string, archivePath: string, outputFilePath: string): void {
     try {
       const imageData = fs.readFileSync(imagePath);
       const archiveData = fs.readFileSync(archivePath);

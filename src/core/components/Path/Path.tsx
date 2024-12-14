@@ -14,7 +14,7 @@ export const Path = (props: PathPropsType) => {
     }
 
     return (
-      <span className={st['path__item']} key={index}>
+      <span className={st["path__item"]} key={index}>
         <span className={st["path__separator"]}>/</span>
         <span className={st["path__text"]}>{item}</span>
       </span>

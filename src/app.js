@@ -33,7 +33,7 @@ app.on("ready", () => {
 
   if (isDev) {
     mainWindow.webContents.openDevTools({
-        mode: "detach",
+      mode: "detach",
     });
   }
 
@@ -46,7 +46,6 @@ app.on("ready", () => {
   });
 
   ipcMain.handle("extract-rar", async (event, filePath) => {
-
     return new Promise((resolve, reject) => {
       const worker = new Worker(path.join(__dirname, "worker/extractorWorker.js"), {
         workerData: { filePath },
@@ -72,8 +71,6 @@ app.on("ready", () => {
         if (code !== 0) reject(new Error(`Worker stopped with exit code ${code}`));
       });
     });
-
-
   });
 
   ipcMain.handle("file-list-rar", async (_, filePath) => {
@@ -91,10 +88,9 @@ app.on("ready", () => {
       const listArcHeader = list.arcHeader;
       const fileHeaders = [...list.fileHeaders];
 
-
       return {
         header: listArcHeader,
-        files: fileHeaders
+        files: fileHeaders,
       };
     } catch (err) {
       return `Error: ${err.message}`;

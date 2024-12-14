@@ -58,7 +58,7 @@ export class FileListTransformer {
         parentDir.files.push({
           ...file,
           name: fileName,
-          fileType: fileType
+          fileType: fileType,
         });
       }
     });

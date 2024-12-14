@@ -7,8 +7,7 @@ export const ProgressBar = () => {
 
   useEffect(() => {
     const handleProgress = (_, data) => {
-
-      console.log(data, 'data');
+      console.log(data, "data");
 
       if (data?.progress !== undefined && !isNaN(data.progress)) {
         setProgress(data.progress);
@@ -26,11 +25,11 @@ export const ProgressBar = () => {
   }, []);
 
   return (
-      <div className={st["progress-container"]}>
-        <div className={st["progress-bar"]} style={{ width: `${progress}%` }}>
-          <span className={st["progress-text"]}>{progress}%</span>
-        </div>
-        {currentFile && <p className={st["current-file"]}>Extracting: {currentFile}</p>}
+    <div className={st["progress-container"]}>
+      <div className={st["progress-bar"]} style={{ width: `${progress}%` }}>
+        <span className={st["progress-text"]}>{progress}%</span>
       </div>
+      {currentFile && <p className={st["current-file"]}>Extracting: {currentFile}</p>}
+    </div>
   );
 };

@@ -21,9 +21,12 @@
     border-radius: 14px;
     cursor: pointer;
     background: linear-gradient(145deg, #f0f0f0, #ffffff);
-    box-shadow: 10px 20px 30px rgba(217, 217, 217, 0.47),
-    -0px -20px 60px #ffffff;
-    transition: 0.15s ease-in-out background-color, 0.15s ease-in-out box-shadow;
+    box-shadow:
+      10px 20px 30px rgba(217, 217, 217, 0.47),
+      -0px -20px 60px #ffffff;
+    transition:
+      0.15s ease-in-out background-color,
+      0.15s ease-in-out box-shadow;
 
     &:focus {
       outline: none;
@@ -31,8 +34,9 @@
 
     &:hover {
       background: linear-gradient(145deg, #f0f0f0, #ffffff);
-      box-shadow: 10px 20px 30px rgba(188, 188, 188, 0.47),
-      -0px -20px 60px #ffffff;
+      box-shadow:
+        10px 20px 30px rgba(188, 188, 188, 0.47),
+        -0px -20px 60px #ffffff;
     }
 
     &:disabled {
@@ -56,5 +60,4 @@
     font-size: 12px;
     font-weight: 500;
   }
-
 }
