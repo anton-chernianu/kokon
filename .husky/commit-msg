@@ -1,14 +1,18 @@
 #!/bin/sh
 
-# Читаем сообщение коммита из файла
 COMMIT_MSG_FILE=$1
 COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
 
-# Проверяем, что сообщение содержит скобки и текст после пробела или двоеточия
 if ! echo "$COMMIT_MSG" | grep -qE '\(.*\)(:|\s).+'; then
-  echo "❌ Сообщение коммита должно содержать скобки и текст после пробела или двоеточия. Пример: 'feat(scope): описание изменений' или 'feat(scope) описание изменений'"
+  printf "================= \n"
+  printf "Invalid commit message format.\n"
+  printf "💡 Commit messages should follow the conventional format:\n"
+  printf "   (type): description\n"
+  printf "   Example: (feat): add user authentication\n\n"
+  printf "🐇 To create a properly formatted commit message, use the following command:\n"
+  printf "   \033[34mnpx cz\033[0m\n" # Blue color for npx cz
+  printf "================= \n"
   exit 1
 fi
 
-# Если формат корректный, выходим успешно
 exit 0
