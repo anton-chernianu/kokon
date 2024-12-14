@@ -11,9 +11,7 @@ export const ProgressBar = () => {
       data: {
         processed: number;
         total: number;
-
         currentFile: string;
-
         nextFile: string;
       },
     ) => {
@@ -41,7 +39,7 @@ export const ProgressBar = () => {
   return (
     <div className={st["progress-container"]}>
       <div className={st["progress-bar"]} style={{ width: `${progress}%` }}>
-        <span className={st["progress-text"]}>123 {progress}%</span>
+        <span className={st["progress-text"]}>124 {progress}%</span>
       </div>
 
       {currentFile && <p className={st["current-file"]}>Extracting: {currentFile}</p>}
