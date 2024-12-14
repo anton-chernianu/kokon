@@ -10,14 +10,18 @@ export const ProgressBar = () => {
       _: unknown,
       data: {
         processed: number;
+
         total: number;
+
         currentFile: string;
+
         nextFile: string;
       },
     ) => {
       console.log(data, "data");
 
       const progress = (data.processed / data.total) * 100;
+
       const progressFixed = Math.round(progress * 100) / 100;
 
       setCurrentFile(data.currentFile);
@@ -31,20 +35,13 @@ export const ProgressBar = () => {
     window.electronAPI.on("extract-progress", handleProgress);
 
     return () => {
-
-
       window.electronAPI.removeListener("extract-progress", handleProgress);
     };
   }, []);
 
   return (
-
-
-
-
     <div className={st["progress-container"]}>
       <div className={st["progress-bar"]} style={{ width: `${progress}%` }}>
-
         <span className={st["progress-text"]}>123 {progress}%</span>
       </div>
 
