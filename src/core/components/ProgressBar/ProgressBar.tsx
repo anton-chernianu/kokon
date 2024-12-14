@@ -10,7 +10,6 @@ export const ProgressBar = () => {
       _: unknown,
       data: {
         processed: number;
-
         total: number;
 
         currentFile: string;

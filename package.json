@@ -46,6 +46,9 @@
     "sass": "^1.82.0"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,css,scss,md}": "npm run format"
+    "*.{js,jsx,ts,tsx,css,scss,md}": [
+      "npm run format",
+      "git add"
+    ]
   }
 }
