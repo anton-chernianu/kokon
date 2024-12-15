@@ -9,13 +9,15 @@ import { Path } from "./components/Path";
 import { FileManager } from "./components/FileManager";
 import { ProgressBar } from "./components/ProgressBar";
 
+// Hooks
+import { useExtractFile } from "./hooks/use-extract-file";
+
 // Styles
 import "../assets/app.scss";
-import { ERROR_STATUS_CODE } from "../constants/error-status-codes";
 
 function App() {
+  const { onExtractFile, error, message } = useExtractFile();
   const [filePath, setFilePath] = useState("");
-  const [message, setMessage] = useState("");
 
   const handleSelectFile = async () => {
     const filePaths = await window.electronAPI.selectFile();
@@ -26,28 +28,11 @@ function App() {
   };
 
   const handleExtractFile = async () => {
-    if (filePath) {
-      try {
-        const result = await window.electronAPI.extractFile({
-          filePath,
-          password: "",
-        });
-
-        if (result.status === "error") {
-          if (result.message === ERROR_STATUS_CODE.PASSWORD_REQUIRED) {
-            console.log("password required");
-          }
-          return;
-        }
-
-        if (result.status === "success") {
-          setMessage(result.message);
-          return;
-        }
-      } catch (error) {
-        console.log(error);
-      }
+    if (!filePath) {
+      return;
     }
+
+    onExtractFile({ filePath });
   };
 
   const handleResetFile = async () => {
@@ -88,6 +73,12 @@ function App() {
               <FileManager filePath={filePath} />
             </div>
           </>
+        )}
+
+        {error && (
+          <div className={"app__error"}>
+            <p>{error}</p>
+          </div>
         )}
 
         {message && (
