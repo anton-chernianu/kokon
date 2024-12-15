@@ -11,6 +11,7 @@ import { ProgressBar } from "./components/ProgressBar";
 
 // Styles
 import "../assets/app.scss";
+import { ERROR_STATUS_CODE } from "../constants/error-status-codes";
 
 function App() {
   const [filePath, setFilePath] = useState("");
@@ -26,8 +27,26 @@ function App() {
 
   const handleExtractFile = async () => {
     if (filePath) {
-      const result = await window.electronAPI.extractFile(filePath);
-      setMessage(result);
+      try {
+        const result = await window.electronAPI.extractFile({
+          filePath,
+          password: "",
+        });
+
+        if (result.status === "error") {
+          if (result.message === ERROR_STATUS_CODE.PASSWORD_REQUIRED) {
+            console.log("password required");
+          }
+          return;
+        }
+
+        if (result.status === "success") {
+          setMessage(result.message);
+          return;
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

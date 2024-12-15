@@ -5,7 +5,10 @@ declare global {
       filesList: (filePath: string) => Promise<{
         files: FileType[];
       }>;
-      extractFile: (filePath: string) => Promise<string>;
+      extractFile: (data: { filePath: string; password: string }) => Promise<{
+        status: "success" | "error";
+        message: string;
+      }>;
       startDrag: (file: File) => Promise<{
         type: string;
         path: string;

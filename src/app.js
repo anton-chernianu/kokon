@@ -45,17 +45,20 @@ app.on("ready", () => {
     return result.filePaths;
   });
 
-  ipcMain.handle("extract-rar", async (event, filePath) => {
+  ipcMain.handle("extract-rar", async (event, { filePath, password = "" }) => {
     return new Promise((resolve, reject) => {
-      const worker = new Worker(path.join(__dirname, "worker/extractorWorker.js"), {
-        workerData: { filePath },
+      const worker = new Worker(path.join(__dirname, "worker/extractor-worker.js"), {
+        workerData: { filePath, password },
       });
 
       worker.on("message", (message) => {
         if (message.error) {
-          reject(message.error);
+          resolve({ status: "error", message: message.error });
         } else if (message.done) {
-          resolve(`Files extracted to: ${message.outputDir}`);
+          resolve({
+            status: "success",
+            message: message.outputDir,
+          });
         } else {
           event.sender.send("extract-progress", {
             processed: message.processed,
@@ -66,9 +69,11 @@ app.on("ready", () => {
         }
       });
 
-      worker.on("error", (error) => reject(error));
+      worker.on("error", (error) => {});
       worker.on("exit", (code) => {
-        if (code !== 0) reject(new Error(`Worker stopped with exit code ${code}`));
+        if (code !== 0) {
+          reject(new Error(`Worker stopped with exit code ${code}`));
+        }
       });
     });
   });

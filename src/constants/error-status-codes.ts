@@ -1,0 +1,3 @@
+export const ERROR_STATUS_CODE = {
+  PASSWORD_REQUIRED: "PASSWORD_REQUIRED",
+} as const;
