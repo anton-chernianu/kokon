@@ -2,6 +2,12 @@
   "asar": true,
   "appId": "com.antony.kokon",
   "files": ["dist/frontend/**/*", "src/app.js", "src/preload.js"],
+  "extraResources": [
+    {
+      "from": "src/worker",
+      "to": "worker"
+    }
+  ],
   "mac": {
     "target": [
       {

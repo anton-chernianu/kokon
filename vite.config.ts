@@ -12,6 +12,12 @@ export default defineConfig({
   build: {
     outDir: "../dist/frontend",
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: "./src/index.html",
+      },
+      external: ["worker_threads"],
+    },
   },
   resolve: {
     alias: {

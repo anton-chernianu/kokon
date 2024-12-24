@@ -10,8 +10,13 @@ body {
 }
 
 .app {
+  position: relative;
+
   &__content {
     padding: 15px;
+    position: relative;
+    box-sizing: border-box;
+    min-height: calc(100vh - 30px);
   }
 
   &__drop {

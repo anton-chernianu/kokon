@@ -4,52 +4,100 @@ import { useState, useCallback } from "react";
 // Constants
 import { ERROR_STATUS_CODE } from "../../constants/error-status-codes";
 
+// Types
 type ExtractFileResultType = {
-  status: string;
+  status: "success" | "error";
   message: string;
+};
+
+type ExtractFileResponse = {
+  status: "success" | "error";
+  data: {
+    errorCode?: string;
+    message: string;
+  };
 };
 
 type UseExtractFileType = {
   error: string;
   message: string;
-  onExtractFile: (data: { filePath: string; password?: string }) => void;
+  isLoading: boolean;
+  onExtractFile: (data: { filePath: string; password?: string }) => Promise<ExtractFileResponse>;
 };
 
 export const useExtractFile = (): UseExtractFileType => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleError = (errorCode: string, defaultMessage: string): ExtractFileResponse => {
+    setError(errorCode);
+    return {
+      status: "error",
+      data: {
+        errorCode,
+        message: defaultMessage,
+      },
+    };
+  };
 
   const onExtractFile = useCallback(
-    async (data: { filePath: string; password?: string }) => {
-      const { filePath, password = "" } = data;
-
+    async ({
+      filePath,
+      password = "",
+    }: {
+      filePath: string;
+      password?: string;
+    }): Promise<ExtractFileResponse> => {
       try {
+        setIsLoading(true);
         const result: ExtractFileResultType = await window.electronAPI.extractFile({
           filePath,
           password,
         });
 
+        console.log(result, "result");
+
         if (result.status === "error") {
-          if (result.message === ERROR_STATUS_CODE.PASSWORD_REQUIRED) {
-            setError(ERROR_STATUS_CODE.PASSWORD_REQUIRED);
+          switch (result.message) {
+            case ERROR_STATUS_CODE.PASSWORD_REQUIRED:
+              return handleError(ERROR_STATUS_CODE.PASSWORD_REQUIRED, "Password is required");
+
+            case ERROR_STATUS_CODE.WRONG_PASSWORD:
+              return handleError(ERROR_STATUS_CODE.WRONG_PASSWORD, "Wrong password");
+
+            default:
+              return handleError(ERROR_STATUS_CODE.UNKNOWN_ERROR, "An unknown error occurred");
           }
-          return;
         }
 
         if (result.status === "success") {
           setMessage(result.message);
-          return;
+          return {
+            status: "success",
+            data: {
+              message: result.message,
+            },
+          };
         }
-      } catch (error) {
-        console.log(error);
+
+        return handleError(ERROR_STATUS_CODE.INVALID_RESPONSE, "Invalid response from API");
+      } catch (err) {
+        console.error("Error in onExtractFile", err);
+        return handleError(ERROR_STATUS_CODE.EXCEPTION, "Something went wrong");
+      } finally {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
       }
     },
-    [error, message],
+    [],
   );
 
   return {
     error,
     message,
     onExtractFile,
+    isLoading,
   };
 };

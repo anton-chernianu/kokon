@@ -2,9 +2,9 @@
 const fs = require("fs");
 const path = require("path");
 const { parentPort, workerData } = require("worker_threads");
-const { createExtractorFromFile } = require("node-unrar-js");
 
 // Utils
+const { createExtractorFromFile } = require("node-unrar-js");
 
 (async () => {
   try {
@@ -14,6 +14,8 @@ const { createExtractorFromFile } = require("node-unrar-js");
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });
     }
+
+    console.log("password", password);
 
     const extractor = await createExtractorFromFile({
       filepath: filePath,
@@ -43,6 +45,7 @@ const { createExtractorFromFile } = require("node-unrar-js");
   } catch (error) {
     const errorStatuses = {
       "Error: Password for encrypted file or header is not specified": "PASSWORD_REQUIRED",
+      "Error: Wrong password is specified": "WRONG_PASSWORD",
     };
     const errorStatus = errorStatuses[error] || error;
 

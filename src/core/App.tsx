@@ -4,13 +4,17 @@ import React, { useState } from "react";
 // Components
 import { Toolbar } from "./components/Toolbar";
 import { Menu } from "./components/Menu";
-import { Drop } from "./components/Drop";
 import { Path } from "./components/Path";
+import { Drop } from "./components/Drop";
 import { FileManager } from "./components/FileManager";
 import { ProgressBar } from "./components/ProgressBar";
+import { PasswordRequired } from "./components/PasswordRequired";
 
 // Hooks
 import { useExtractFile } from "./hooks/use-extract-file";
+
+// Constants
+import { ERROR_STATUS_CODE } from "../constants/error-status-codes";
 
 // Styles
 import "../assets/app.scss";
@@ -43,6 +47,10 @@ function App() {
     setFilePath(path);
   };
 
+  const handleClosePasswordRequired = () => {
+    // console.log('handleClosePasswordRequired')
+  };
+
   return (
     <div className={"app"}>
       <div className={"app__toolbar"}>
@@ -58,13 +66,11 @@ function App() {
           />
         </div>
 
-        {!filePath && (
+        {!filePath ? (
           <div className={"app__drop"}>
             <Drop onFileDrop={handleFileDrop} onBrowseFile={handleSelectFile} />
           </div>
-        )}
-
-        {filePath && (
+        ) : (
           <>
             <div className={"app__filepath"}>
               <Path filePath={filePath} />
@@ -75,19 +81,23 @@ function App() {
           </>
         )}
 
-        {error && (
-          <div className={"app__error"}>
-            <p>{error}</p>
-          </div>
+        {/*{error && (*/}
+        {/*  <div className={"app__error"}>*/}
+        {/*    <p>{error}</p>*/}
+        {/*  </div>*/}
+        {/*)}*/}
+
+        {error === ERROR_STATUS_CODE.PASSWORD_REQUIRED && (
+          <PasswordRequired filePath={filePath} onClose={handleClosePasswordRequired} />
         )}
 
-        {message && (
-          <div className={"app__message"}>
-            <p>{message}</p>
-          </div>
-        )}
+        {/*{message && (*/}
+        {/*  <div className={"app__message"}>*/}
+        {/*    <p>{message}</p>*/}
+        {/*  </div>*/}
+        {/*)}*/}
 
-        <ProgressBar />
+        {/*<ProgressBar />*/}
       </div>
     </div>
   );

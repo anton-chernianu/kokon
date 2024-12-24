@@ -31,11 +31,11 @@ app.on("ready", () => {
 
   mainWindow.loadURL(startUrl);
 
-  if (isDev) {
-    mainWindow.webContents.openDevTools({
-      mode: "detach",
-    });
-  }
+  // if (isDev) {
+  mainWindow.webContents.openDevTools({
+    mode: "detach",
+  });
+  // }
 
   ipcMain.handle("dialog:openFile", async () => {
     const result = await dialog.showOpenDialog(mainWindow, {
@@ -47,7 +47,11 @@ app.on("ready", () => {
 
   ipcMain.handle("extract-rar", async (event, { filePath, password = "" }) => {
     return new Promise((resolve, reject) => {
-      const worker = new Worker(path.join(__dirname, "worker/extractor-worker.js"), {
+      const workerPath = isDev
+        ? path.join(__dirname, "worker/extractor-worker.js")
+        : path.join(process.resourcesPath, "worker", "extractor-worker.js");
+
+      const worker = new Worker(workerPath, {
         workerData: { filePath, password },
       });
 
