@@ -15,19 +15,16 @@ const { createExtractorFromFile } = require("node-unrar-js");
       fs.mkdirSync(outputDir, { recursive: true });
     }
 
-    console.log("password", password);
-
     const extractor = await createExtractorFromFile({
       filepath: filePath,
       targetPath: outputDir,
       password,
     });
 
+    let extractedCount = 0;
     const fileHeadersArray = Array.from(extractor.getFileList().fileHeaders);
 
     const totalFiles = fileHeadersArray.length;
-
-    let extractedCount = 0;
 
     for await (const file of extractor.extract().files) {
       const nextFile = fileHeadersArray[extractedCount + 1]?.name || "None";
@@ -52,3 +49,11 @@ const { createExtractorFromFile } = require("node-unrar-js");
     parentPort.postMessage({ error: errorStatus });
   }
 })();
+
+process.on("uncaughtException", err => {
+  parentPort.postMessage({ error: `Uncaught exception: ${err.message}` });
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+  parentPort.postMessage({ error: `Unhandled rejection: ${reason}` });
+});

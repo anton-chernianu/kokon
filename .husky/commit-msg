@@ -10,7 +10,7 @@ if ! echo "$COMMIT_MSG" | grep -qE '\(.*\)(:|\s).+'; then
   printf "   (type): description\n"
   printf "   Example: (feat): add user authentication\n\n"
   printf "🐇 To create a properly formatted commit message, use the following command:\n"
-  printf "   \033[34mnpx cz\033[0m\n" # Blue color for npx cz
+  printf "   \033[34mnpx cz\033[0m\n"
   printf "================= \n"
   exit 1
 fi

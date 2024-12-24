@@ -97,7 +97,7 @@ function App() {
         {/*  </div>*/}
         {/*)}*/}
 
-        {/*<ProgressBar />*/}
+        <ProgressBar />
       </div>
     </div>
   );
