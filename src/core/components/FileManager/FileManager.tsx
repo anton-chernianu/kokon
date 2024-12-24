@@ -6,8 +6,8 @@ import dayjs from "dayjs";
 import st from "./styles.module.scss";
 
 // Utils
-import { DirectoryType, FileListTransformer } from "../../utils/formatFileList";
-import { fileTypeToEmoji } from "../../utils/fileTypeToEmoji";
+import { type DirectoryType, FileListTransformer } from "../../utils/format-file-list";
+import { fileTypeToEmoji } from "../../utils/file-type-to-emoji";
 
 type FileManagerPropsType = {
   filePath: string;
@@ -30,7 +30,7 @@ export const FileManager = (props: FileManagerPropsType) => {
           const transformer = new FileListTransformer();
           const transformedFiles = transformer.transform(files);
           setDirectories(transformedFiles);
-          setOpenState((prevState) => ({
+          setOpenState(prevState => ({
             ...prevState,
             root: true,
           }));
@@ -42,7 +42,7 @@ export const FileManager = (props: FileManagerPropsType) => {
   }, [filePath]);
 
   const toggleDirectory = (path: string) => {
-    setOpenState((prevState) => ({
+    setOpenState(prevState => ({
       ...prevState,
       [path]: !prevState[path],
     }));
@@ -93,7 +93,7 @@ export const FileManager = (props: FileManagerPropsType) => {
                 </div>
               </div>
             ))}
-            {directory.directories.map((subDirectory) =>
+            {directory.directories.map(subDirectory =>
               renderDirectory(subDirectory, `${path}/${subDirectory.name}`),
             )}
           </div>

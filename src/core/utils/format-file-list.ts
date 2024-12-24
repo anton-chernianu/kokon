@@ -28,7 +28,7 @@ export class FileListTransformer {
     function findOrCreateDirectory(path: string[], parent: DirectoryType): DirectoryType {
       const [current, ...rest] = path;
 
-      let directory = parent.directories.find((dir) => dir.name === current);
+      let directory = parent.directories.find(dir => dir.name === current);
       if (!directory) {
         directory = { name: current, files: [], directories: [] };
         parent.directories.push(directory);
@@ -41,7 +41,7 @@ export class FileListTransformer {
       return findOrCreateDirectory(rest, directory);
     }
 
-    files.forEach((file) => {
+    files.forEach(file => {
       const parts = file.name.split("/");
       const isDirectory = file.flags.directory;
 

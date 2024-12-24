@@ -86,7 +86,7 @@ export const PasswordRequired = (props: PasswordRequiredProps) => {
                 className={st["password-required__input"]}
                 placeholder="Enter password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
               />
               <span className={st["password-required__error"]}>{errorMessage}</span>
             </div>
