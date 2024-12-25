@@ -31,11 +31,11 @@ app.on("ready", () => {
 
   mainWindow.loadURL(startUrl);
 
-  // if (isDev) {
-  mainWindow.webContents.openDevTools({
-    mode: "detach",
-  });
-  // }
+  if (isDev) {
+    mainWindow.webContents.openDevTools({
+      mode: "detach",
+    });
+  }
 
   ipcMain.handle("dialog:openFile", async () => {
     const result = await dialog.showOpenDialog(mainWindow, {

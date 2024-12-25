@@ -4,8 +4,8 @@
   <br>
   Kokon
 </h1>
-
-<h4 align="center">A lightweight macOS app for extracting archive files, with a focus on RAR format support. Simple, fast, and reliable! 📦✨</h4>
+<h4 align="center">A lightweight macOS app for extracting archive files, with a focus on RAR format support. </h4>
+<h4 align="center">Simple, fast, and reliable! 📦✨</h4>
 
 ## Project goals
 
