@@ -9,13 +9,12 @@
 
 <div align="center">
 
-[![Version][github-version-img]][github-version-uri]
-[![Tests][github-tests-img]][github-tests-uri]
-[![Downloads][github-downloads-img]][github-downloads-uri]
-[![Size][github-size-img]][github-size-img]
-[![Last Commit][github-commit-img]][github-commit-img]
-[![Contributors][contribs-all-img]][contribs-all-uri]
-[![License][license-img]][license-uri]
+[![Version](https://img.shields.io/github/v/release/anton-chernianu/kokon)](https://github.com/USERNAME/REPO/releases)
+[![Downloads](https://img.shields.io/github/downloads/anton-chernianu/kokon/total)](https://github.com/USERNAME/REPO/releases)
+[![Size](https://img.shields.io/github/repo-size/anton-chernianu/kokon)](https://github.com/USERNAME/REPO)
+[![Last Commit](https://img.shields.io/github/last-commit/anton-chernianu/kokon)](https://github.com/USERNAME/REPO/commits)
+[![Contributors](https://img.shields.io/github/contributors/anton-chernianu/kokon)](https://github.com/USERNAME/REPO/graphs/contributors)
+[![License](https://img.shields.io/github/license/anton-chernianu/kokon)](https://github.com/USERNAME/REPO/blob/main/LICENSE)
 
 </div>
 
