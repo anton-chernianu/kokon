@@ -9,12 +9,12 @@
 
 <div align="center">
 
-[![Version](https://img.shields.io/github/v/release/anton-chernianu/kokon)](https://github.com/USERNAME/REPO/releases)
-[![Downloads](https://img.shields.io/github/downloads/anton-chernianu/kokon/total)](https://github.com/USERNAME/REPO/releases)
-[![Size](https://img.shields.io/github/repo-size/anton-chernianu/kokon)](https://github.com/USERNAME/REPO)
-[![Last Commit](https://img.shields.io/github/last-commit/anton-chernianu/kokon)](https://github.com/USERNAME/REPO/commits)
-[![Contributors](https://img.shields.io/github/contributors/anton-chernianu/kokon)](https://github.com/USERNAME/REPO/graphs/contributors)
-[![License](https://img.shields.io/github/license/anton-chernianu/kokon)](https://github.com/USERNAME/REPO/blob/main/LICENSE)
+[![Version](https://img.shields.io/github/v/release/anton-chernianu/kokon)](https://github.com/anton-chernianu/kokon/releases)
+[![Downloads](https://img.shields.io/github/downloads/anton-chernianu/kokon/total)](https://github.com/anton-chernianu/kokon/releases)
+[![Size](https://img.shields.io/github/repo-size/anton-chernianu/kokon)](https://github.com/anton-chernianu/kokon)
+[![Last Commit](https://img.shields.io/github/last-commit/anton-chernianu/kokon)](https://github.com/anton-chernianu/kokon/commits)
+[![Contributors](https://img.shields.io/github/contributors/anton-chernianu/kokon)](https://github.com/anton-chernianu/kokon/graphs/contributors)
+[![License](https://img.shields.io/github/license/anton-chernianu/kokon)](https://github.com/anton-chernianu/kokon/blob/main/LICENSE)
 
 </div>
 
