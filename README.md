@@ -38,6 +38,13 @@ In the future, I plan to add new features based on user feedback to make the app
 
 [Download the latest release!](https://github.com/anton-chernianu/kokon/releases)
 
+## Technologies Used
+
+- Built with Electron for seamless macOS integration.
+- Powered by a modern React-based UI for speed and simplicity.
+- Uses web workers to offload heavy tasks for a smoother user experience.
+- RAR extraction is handled using an optimized library for reliable performance.
+
 ## License
 
 MIT. Copyright (c)

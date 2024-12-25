@@ -7,7 +7,7 @@ export const ModalProgress = () => {
   return (
     <Modal>
       <Loader />
-      <ProgressBar />
+      {/*<ProgressBar />*/}
     </Modal>
   );
 };
