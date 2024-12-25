@@ -1,9 +1,16 @@
 // Core
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-// Styles
-import st from "./styles.module.scss";
+// Components
+import { Modal } from "../Modal";
+import { Loader } from "../Loader";
+import { PasswordRequiredForm } from "./PasswordRequiredForm";
+import { PasswordRequiredSuccess } from "./PasswordRequiredSuccess";
+
+// Hooks
 import { useExtractFile } from "../../hooks/use-extract-file";
+
+// Utils
 import { ERROR_STATUS_CODE } from "../../../constants/error-status-codes";
 
 type PasswordRequiredProps = {
@@ -18,22 +25,20 @@ export const PasswordRequired = (props: PasswordRequiredProps) => {
 
   const [isSuccess, setIsSuccess] = useState(false);
   const [savedFilePath, setSavedFilePath] = useState("");
-
-  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleClose = () => {
-    console.log("handleClose");
     onClose?.();
+    setErrorMessage("");
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (formData: { password: string }) => {
+    const { password } = formData;
+
     if (!password) {
       setErrorMessage("Password is required");
       return;
     }
-
-    setErrorMessage("");
 
     const { status, data } = await onExtractFile({ filePath, password });
 
@@ -49,58 +54,18 @@ export const PasswordRequired = (props: PasswordRequiredProps) => {
   };
 
   return (
-    <div className={st["password-required"]}>
-      <div className={st["password-required__overlay"]} onClick={handleClose} />
-      <div className={st["password-required__container"]}>
-        {isLoading && (
-          <div className={st["password-required__loader"]}>
-            <div className={st["password-required__loading-circle"]}></div>
-          </div>
-        )}
+    <Modal onClose={handleClose}>
+      {isLoading && <Loader />}
 
-        {isSuccess && (
-          <div className={st["password-required__success"]}>
-            <p className={st["password-required__success-message"]}>File extracted successfully</p>
-            <input
-              className={st["password-required__success-file-path"]}
-              value={savedFilePath}
-              readOnly
-            />
-            <div className={st["password-required__success-action"]}>
-              <button className={st["password-required__button"]} onClick={handleClose}>
-                Close
-              </button>
-            </div>
-          </div>
-        )}
-
-        {!isSuccess && (
-          <div className={st["password-required__content"]}>
-            <p className={st["password-required__description"]}>
-              This file is password protected. <br /> Please enter the password to extract the
-              contents.
-            </p>
-            <div className={st["password-required__field"]}>
-              {/*TODO: add show/hide password component*/}
-              <input
-                className={st["password-required__input"]}
-                placeholder="Enter password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-              />
-              <span className={st["password-required__error"]}>{errorMessage}</span>
-            </div>
-
-            <button
-              className={st["password-required__button"]}
-              onClick={handleSubmit}
-              disabled={isLoading || !password}
-            >
-              Extract
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
+      {!isSuccess ? (
+        <PasswordRequiredForm
+          onSubmit={handleSubmit}
+          loading={isLoading}
+          errorMessage={errorMessage}
+        />
+      ) : (
+        <PasswordRequiredSuccess filePath={savedFilePath} onClose={handleClose} />
+      )}
+    </Modal>
   );
 };

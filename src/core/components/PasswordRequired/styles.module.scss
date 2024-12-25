@@ -1,49 +1,9 @@
-.password-required {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(176, 176, 176, 0.4);
-    z-index: 100;
-    backdrop-filter: blur(5px);
-  }
-
-  &__container {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    background: linear-gradient(145deg, #f0f0f0, #ffffff);
-    border-radius: 10px;
-    box-shadow:
-      10px 20px 30px rgba(217, 217, 217, 0.47),
-      -0px -20px 60px #ffffff;
-    z-index: 101;
-    min-height: 180px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
+.password-required-form {
   &__content {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-
   &__description {
     font-size: 16px;
     font-weight: 500;
@@ -52,11 +12,9 @@
     margin-bottom: 15px;
     line-height: 20px;
   }
-
   &__field {
     width: 100%;
   }
-
   &__input {
     width: 100%;
     padding: 10px;
@@ -73,7 +31,6 @@
       outline: 2px solid #4c7ee7;
     }
   }
-
   &__error {
     min-height: 12px;
     font-size: 10px;
@@ -82,6 +39,77 @@
     width: 100%;
     justify-content: flex-end;
     margin-bottom: 10px;
+  }
+  &__button {
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(145deg, #4c7ee7, #5a8ee6);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow:
+      5px 10px 20px rgba(76, 126, 231, 0.3),
+      -0px -10px 30px #ffffff;
+    transition:
+      0.15s ease-in-out background-color,
+      0.15s ease-in-out box-shadow;
+
+    &:hover {
+      background: linear-gradient(145deg, #5a8ee6, #6b9df5);
+      box-shadow:
+        10px 20px 30px rgba(76, 126, 231, 0.47),
+        -0px -20px 60px #ffffff;
+    }
+
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.5;
+      background: linear-gradient(145deg, #4c7ee7, #5a8ee6);
+      box-shadow: 10px 20px 30px rgba(76, 126, 231, 0.3);
+    }
+  }
+}
+
+.password-required-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;
+  max-width: 320px;
+
+  &__message {
+    font-size: 18px;
+    font-weight: 600;
+    color: #4c7ee7;
+    margin-bottom: 10px;
+  }
+
+  &__file-path {
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    margin-bottom: 20px;
+    word-wrap: break-word;
+    border: 1px solid #dcdcdc;
+    padding: 8px;
+    width: 100%;
+
+    &:focus {
+      outline: 2px solid #4c7ee7;
+    }
+  }
+
+  &__action {
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 
   &__button {
@@ -114,79 +142,5 @@
       background: linear-gradient(145deg, #4c7ee7, #5a8ee6);
       box-shadow: 10px 20px 30px rgba(76, 126, 231, 0.3);
     }
-  }
-
-  &__loader {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2000;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 12px;
-  }
-
-  &__loading-circle {
-    width: 50px;
-    height: 50px;
-    border: 5px solid rgba(0, 0, 0, 0.1);
-    border-top: 5px solid #4c7ee7;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  &__success {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    width: 100%;
-    max-width: 320px;
-  }
-
-  &__success-message {
-    font-size: 18px;
-    font-weight: 600;
-    color: #4c7ee7;
-    margin-bottom: 10px;
-  }
-
-  &__success-file-path {
-    font-size: 14px;
-    font-weight: 400;
-    color: #333;
-    margin-bottom: 20px;
-    word-wrap: break-word;
-    border: 1px solid #dcdcdc;
-    padding: 8px;
-    width: 100%;
-
-    &:focus {
-      outline: 2px solid #4c7ee7;
-    }
-  }
-
-  &__success-action {
-    display: flex;
-    justify-content: center;
-    width: 100%;
   }
 }

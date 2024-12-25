@@ -1,5 +1,5 @@
 // Core
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Components
 import { Toolbar } from "./components/Toolbar";
@@ -20,8 +20,15 @@ import { ERROR_STATUS_CODE } from "../constants/error-status-codes";
 import "../assets/app.scss";
 
 function App() {
-  const { onExtractFile, error, message } = useExtractFile();
+  const { onExtractFile, message } = useExtractFile();
   const [filePath, setFilePath] = useState("");
+  const [isPasswordRequired, setIsPasswordRequired] = useState(false);
+
+  // useEffect(() => {
+  //   if (error === ERROR_STATUS_CODE.PASSWORD_REQUIRED) {
+  //     setIsPasswordRequired(true);
+  //   }
+  // }, [error]);
 
   const handleSelectFile = async () => {
     const filePaths = await window.electronAPI.selectFile();
@@ -36,7 +43,18 @@ function App() {
       return;
     }
 
-    onExtractFile({ filePath });
+    try {
+      const { status, data } = await onExtractFile({ filePath });
+
+      const { errorCode, message } = data;
+
+      if (status === "error" && errorCode === ERROR_STATUS_CODE.PASSWORD_REQUIRED) {
+        setIsPasswordRequired(true);
+        return;
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const handleResetFile = async () => {
@@ -48,7 +66,7 @@ function App() {
   };
 
   const handleClosePasswordRequired = () => {
-    // console.log('handleClosePasswordRequired')
+    setIsPasswordRequired(false);
   };
 
   return (
@@ -87,7 +105,7 @@ function App() {
         {/*  </div>*/}
         {/*)}*/}
 
-        {error === ERROR_STATUS_CODE.PASSWORD_REQUIRED && (
+        {isPasswordRequired && (
           <PasswordRequired filePath={filePath} onClose={handleClosePasswordRequired} />
         )}
 
@@ -97,7 +115,7 @@ function App() {
         {/*  </div>*/}
         {/*)}*/}
 
-        <ProgressBar />
+        {/*<ProgressBar />*/}
       </div>
     </div>
   );
