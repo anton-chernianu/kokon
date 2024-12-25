@@ -3,28 +3,26 @@ import { useState } from "react";
 
 // Components
 import { Modal } from "../Modal";
-import { Loader } from "../Loader";
 import { PasswordRequiredForm } from "./PasswordRequiredForm";
-import { PasswordRequiredSuccess } from "./PasswordRequiredSuccess";
 
 // Hooks
-import { useExtractFile } from "../../hooks/use-extract-file";
+import { useExtractFile } from "../../../../hooks/use-extract-file";
 
 // Utils
-import { ERROR_STATUS_CODE } from "../../../constants/error-status-codes";
+import { ERROR_STATUS_CODE } from "../../../../../constants/error-status-codes";
+import { ModalProgress } from "../ModalProgress";
 
-type PasswordRequiredProps = {
+type ModalPasswordRequiredProps = {
   filePath: string;
   onClose?: () => void;
+  onSuccess?: (filePath: string) => void;
 };
 
-export const PasswordRequired = (props: PasswordRequiredProps) => {
-  const { onClose, filePath } = props;
+export const ModalPasswordRequired = (props: ModalPasswordRequiredProps) => {
+  const { filePath, onClose, onSuccess } = props;
 
   const { onExtractFile, error, message, isLoading } = useExtractFile();
 
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [savedFilePath, setSavedFilePath] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleClose = () => {
@@ -48,24 +46,21 @@ export const PasswordRequired = (props: PasswordRequiredProps) => {
     }
 
     if (status === "success") {
-      setIsSuccess(true);
-      setSavedFilePath(data.message);
+      onSuccess?.(data.message);
     }
   };
 
+  if (isLoading) {
+    return <ModalProgress />;
+  }
+
   return (
     <Modal onClose={handleClose}>
-      {isLoading && <Loader />}
-
-      {!isSuccess ? (
-        <PasswordRequiredForm
-          onSubmit={handleSubmit}
-          loading={isLoading}
-          errorMessage={errorMessage}
-        />
-      ) : (
-        <PasswordRequiredSuccess filePath={savedFilePath} onClose={handleClose} />
-      )}
+      <PasswordRequiredForm
+        onSubmit={handleSubmit}
+        loading={isLoading}
+        errorMessage={errorMessage}
+      />
     </Modal>
   );
 };

@@ -56,8 +56,6 @@ export const useExtractFile = (): UseExtractFileType => {
           password,
         });
 
-        console.log(result, "result");
-
         if (result.status === "error") {
           switch (result.message) {
             case ERROR_STATUS_CODE.PASSWORD_REQUIRED:
@@ -86,9 +84,7 @@ export const useExtractFile = (): UseExtractFileType => {
         console.error("Error in onExtractFile", err);
         return handleError(ERROR_STATUS_CODE.EXCEPTION, "Something went wrong");
       } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1000);
+        setIsLoading(false);
       }
     },
     [],

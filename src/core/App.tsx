@@ -1,5 +1,5 @@
 // Core
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 // Components
 import { Toolbar } from "./components/Toolbar";
@@ -7,8 +7,7 @@ import { Menu } from "./components/Menu";
 import { Path } from "./components/Path";
 import { Drop } from "./components/Drop";
 import { FileManager } from "./components/FileManager";
-import { ProgressBar } from "./components/ProgressBar";
-import { PasswordRequired } from "./components/PasswordRequired";
+import { ModalView } from "./components/Modal";
 
 // Hooks
 import { useExtractFile } from "./hooks/use-extract-file";
@@ -19,38 +18,59 @@ import { ERROR_STATUS_CODE } from "../constants/error-status-codes";
 // Styles
 import "../assets/app.scss";
 
-function App() {
-  const { onExtractFile, message } = useExtractFile();
-  const [filePath, setFilePath] = useState("");
-  const [isPasswordRequired, setIsPasswordRequired] = useState(false);
+type FileStateType = {
+  filePath: string;
+  extractedToFilePath: string;
+  isPasswordRequired: boolean;
+  isSuccess: boolean;
+};
 
-  // useEffect(() => {
-  //   if (error === ERROR_STATUS_CODE.PASSWORD_REQUIRED) {
-  //     setIsPasswordRequired(true);
-  //   }
-  // }, [error]);
+const INITIAL_FILE_STATE: FileStateType = {
+  filePath: "",
+  extractedToFilePath: "",
+  isPasswordRequired: false,
+  isSuccess: false,
+};
+
+function App() {
+  const { onExtractFile, isLoading } = useExtractFile();
+  const [fileState, setFileState] = useState<FileStateType>(INITIAL_FILE_STATE);
+  const [modalType, setModalType] = useState<
+    "PASSWORD_REQUIRED" | "SUCCESS" | "FILE_PROGRESS" | null
+  >(null);
+
+  const updateFileState = useCallback(
+    (updates: Partial<FileStateType>) => setFileState(prevState => ({ ...prevState, ...updates })),
+    [],
+  );
 
   const handleSelectFile = async () => {
     const filePaths = await window.electronAPI.selectFile();
 
     if (filePaths.length > 0) {
-      setFilePath(filePaths[0]);
+      updateFileState({ filePath: filePaths[0] });
     }
   };
 
   const handleExtractFile = async () => {
+    const { filePath } = fileState;
+
     if (!filePath) {
       return;
     }
 
     try {
       const { status, data } = await onExtractFile({ filePath });
-
       const { errorCode, message } = data;
 
       if (status === "error" && errorCode === ERROR_STATUS_CODE.PASSWORD_REQUIRED) {
-        setIsPasswordRequired(true);
+        setModalType("PASSWORD_REQUIRED");
+        updateFileState({ isPasswordRequired: true });
         return;
+      }
+
+      if (status === "success") {
+        handleSuccess(message);
       }
     } catch (e) {
       console.error(e);
@@ -58,15 +78,21 @@ function App() {
   };
 
   const handleResetFile = async () => {
-    setFilePath("");
+    updateFileState(INITIAL_FILE_STATE);
   };
 
   const handleFileDrop = async (path: string) => {
-    setFilePath(path);
+    updateFileState({ filePath: path });
   };
 
-  const handleClosePasswordRequired = () => {
-    setIsPasswordRequired(false);
+  const handleSuccess = (filePath: string) => {
+    setModalType("SUCCESS");
+    updateFileState({ isSuccess: true, extractedToFilePath: filePath });
+  };
+
+  const handleModalClose = () => {
+    updateFileState({ isPasswordRequired: false, isSuccess: false });
+    setModalType(null);
   };
 
   return (
@@ -80,42 +106,34 @@ function App() {
             onSelect={handleSelectFile}
             onExtract={handleExtractFile}
             onRemove={handleResetFile}
-            filePath={filePath}
+            filePath={fileState.filePath}
           />
         </div>
 
-        {!filePath ? (
+        {!fileState.filePath ? (
           <div className={"app__drop"}>
             <Drop onFileDrop={handleFileDrop} onBrowseFile={handleSelectFile} />
           </div>
         ) : (
           <>
             <div className={"app__filepath"}>
-              <Path filePath={filePath} />
+              <Path filePath={fileState.filePath} />
             </div>
             <div className={"app__manager"}>
-              <FileManager filePath={filePath} />
+              <FileManager filePath={fileState.filePath} />
             </div>
           </>
         )}
 
-        {/*{error && (*/}
-        {/*  <div className={"app__error"}>*/}
-        {/*    <p>{error}</p>*/}
-        {/*  </div>*/}
-        {/*)}*/}
-
-        {isPasswordRequired && (
-          <PasswordRequired filePath={filePath} onClose={handleClosePasswordRequired} />
-        )}
-
-        {/*{message && (*/}
-        {/*  <div className={"app__message"}>*/}
-        {/*    <p>{message}</p>*/}
-        {/*  </div>*/}
-        {/*)}*/}
-
-        {/*<ProgressBar />*/}
+        <ModalView
+          modalType={isLoading ? "FILE_PROGRESS" : modalType}
+          modalProps={{
+            filePath: fileState.filePath,
+            extractedToFilePath: fileState.extractedToFilePath,
+            onClose: handleModalClose,
+            onSuccess: handleSuccess,
+          }}
+        />
       </div>
     </div>
   );

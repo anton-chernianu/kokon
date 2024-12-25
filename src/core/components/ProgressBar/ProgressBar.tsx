@@ -1,4 +1,7 @@
+// Core
 import React, { useEffect, useState } from "react";
+
+// Styles
 import st from "./styles.module.scss";
 
 export const ProgressBar = () => {
