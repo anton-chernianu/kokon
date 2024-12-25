@@ -7,6 +7,18 @@
 <h4 align="center">A lightweight macOS app for extracting archive files, with a focus on RAR format support. </h4>
 <h4 align="center">Simple, fast, and reliable! 📦✨</h4>
 
+<div align="center">
+
+[![Version][github-version-img]][github-version-uri]
+[![Tests][github-tests-img]][github-tests-uri]
+[![Downloads][github-downloads-img]][github-downloads-uri]
+[![Size][github-size-img]][github-size-img]
+[![Last Commit][github-commit-img]][github-commit-img]
+[![Contributors][contribs-all-img]][contribs-all-uri]
+[![License][license-img]][license-uri]
+
+</div>
+
 ## Project goals
 
 The goal of the project is to create a lightweight and user-friendly macOS app for extracting archives, especially RAR files. After failing to find suitable free and open-source solutions, I decided to develop my own, focusing on simplicity, speed, and reliability.
