@@ -41,6 +41,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
+    gap: 8px;
   }
 
   &__button {
@@ -58,7 +59,8 @@
       -0px -10px 30px #ffffff;
     transition:
       0.15s ease-in-out background-color,
-      0.15s ease-in-out box-shadow;
+      0.15s ease-in-out box-shadow,
+      0.15s ease-in-out color;
 
     &:hover {
       background: linear-gradient(145deg, #5a8ee6, #6b9df5);
@@ -72,6 +74,20 @@
       opacity: 0.5;
       background: linear-gradient(145deg, #4c7ee7, #5a8ee6);
       box-shadow: 10px 20px 30px rgba(76, 126, 231, 0.3);
+    }
+
+    &--open {
+      background: none;
+      border: 2px solid #4c7ee7;
+      color: #4c7ee7;
+
+      &:hover {
+        background: linear-gradient(145deg, #4c7ee7, #5a8ee6);
+        box-shadow:
+          10px 20px 30px rgba(76, 126, 231, 0.47),
+          -0px -20px 60px #ffffff;
+        color: #fff;
+      }
     }
   }
 }

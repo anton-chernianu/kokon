@@ -20,4 +20,5 @@ contextBridge.exposeInMainWorld("electronAPI", {
   removeListener: (channel, callback) => {
     ipcRenderer.removeListener(channel, callback);
   },
+  openDirectory: filePath => ipcRenderer.invoke("open-directory", filePath),
 });

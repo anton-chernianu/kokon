@@ -1,3 +1,6 @@
+// Core
+import cn from "classnames";
+
 // Components
 import { Modal } from "../Modal";
 
@@ -12,9 +15,16 @@ type ModalSuccessProps = {
 export const ModalSuccess = (props: ModalSuccessProps) => {
   const { onClose, filePath } = props;
 
+  const handleOpen = () => {
+    window.electronAPI.openDirectory(filePath);
+  };
+
   const handleClose = () => {
     onClose?.();
   };
+
+  const buttonOpenStyles = cn(st["modal-success__button"], st["modal-success__button--open"]);
+  const buttonCloseStyles = cn(st["modal-success__button"], st["modal-success__button--close"]);
 
   return (
     <Modal onClose={handleClose}>
@@ -22,7 +32,10 @@ export const ModalSuccess = (props: ModalSuccessProps) => {
         <p className={st["modal-success__message"]}>File extracted successfully</p>
         <input className={st["modal-success__file-path"]} value={filePath} readOnly />
         <div className={st["modal-success__action"]}>
-          <button className={st["modal-success__button"]} onClick={handleClose}>
+          <button className={buttonOpenStyles} onClick={handleOpen}>
+            Open in Finder
+          </button>
+          <button className={buttonCloseStyles} onClick={handleClose}>
             Close
           </button>
         </div>

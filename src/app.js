@@ -119,4 +119,19 @@ app.on("ready", () => {
       path: filePath,
     };
   });
+
+  ipcMain.handle("open-directory", async (_, filePath) => {
+    const folderPath = path.dirname(filePath);
+    try {
+      const isAccessible = fs.existsSync(folderPath);
+      if (!isAccessible) {
+        throw new Error("Directory does not exist");
+      }
+      await require("electron").shell.openPath(filePath);
+      return { success: true };
+    } catch (error) {
+      console.error("Error opening directory:", error);
+      return { success: false, error: error.message };
+    }
+  });
 });

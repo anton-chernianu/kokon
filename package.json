@@ -2,7 +2,7 @@
   "name": "kokon",
   "main": "src/app.js",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Anton Cherninanu <anton@chernianu.com>",
   "description": "A lightweight macOS app for extracting archive files, with a focus on RAR format support. Simple, fast, and reliable! 📦✨",
   "keywords": [
