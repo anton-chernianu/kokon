@@ -7,6 +7,8 @@
 <h4 align="center">A lightweight macOS app for extracting archive files, with a focus on RAR format support. </h4>
 <h4 align="center">Simple, fast, and reliable! 📦✨</h4>
 
+<img src="/docs/preview.gif">
+
 <div align="center">
 
 [![Version](https://img.shields.io/github/v/release/anton-chernianu/kokon)](https://github.com/anton-chernianu/kokon/releases)
@@ -28,6 +30,8 @@ In the future, I plan to add new features based on user feedback to make the app
 
 - ✅ Extract RAR archives
 - ✅ Decrypt and extract password-protected RAR files
+- ✅ Preview archive contents, including file names, types, and sizes
+- ✅ Drag-and-drop support
 - ✅ Lightweight and fast
 - ✅ Simple, intuitive interface
 - ✅ Optimized for Apple Silicon (M1/M2)
