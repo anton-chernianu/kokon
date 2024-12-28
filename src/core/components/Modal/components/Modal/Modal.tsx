@@ -1,5 +1,9 @@
 // Core
 import { useEffect, type ReactNode } from "react";
+import cn from "classnames";
+
+// Hooks
+import { useDarkMode } from "../../../../context/DarkModeProvider";
 
 // Styles
 import st from "./styles.module.scss";
@@ -11,6 +15,8 @@ type ModalProps = {
 
 export const Modal = (props: ModalProps) => {
   const { onClose, children } = props;
+
+  const { isDarkMode } = useDarkMode();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -30,8 +36,12 @@ export const Modal = (props: ModalProps) => {
     onClose?.();
   };
 
+  const modalStyles = cn(st.modal, {
+    [st["modal--dark"]]: isDarkMode,
+  });
+
   return (
-    <div className={st["modal"]}>
+    <div className={modalStyles}>
       <div className={st["modal__overlay"]} onClick={handleClose} />
       <div className={st["modal__container"]}>{children}</div>
     </div>

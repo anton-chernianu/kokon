@@ -1,5 +1,5 @@
 // Core
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog, nativeTheme } = require("electron");
 const path = require("path");
 const fs = require("fs");
 const fileTypeUtils = require("file-type");
@@ -133,5 +133,16 @@ app.on("ready", () => {
       console.error("Error opening directory:", error);
       return { success: false, error: error.message };
     }
+  });
+
+  ipcMain.handle("get-system-theme", () => {
+    return nativeTheme.shouldUseDarkColors ? "dark" : "light";
+  });
+
+  nativeTheme.on("updated", () => {
+    mainWindow.webContents.send(
+      "theme-updated",
+      nativeTheme.shouldUseDarkColors ? "dark" : "light",
+    );
   });
 });

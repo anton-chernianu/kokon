@@ -5,6 +5,9 @@ import cn from "classnames";
 // Icons
 import { CloudIcon } from "./icons/cloud";
 
+// Hooks
+import { useDarkMode } from "../../context/DarkModeProvider";
+
 // Styles
 import st from "./styles.module.scss";
 
@@ -14,6 +17,7 @@ type DropPropsType = {
 };
 
 export const Drop = (props: DropPropsType) => {
+  const { isDarkMode } = useDarkMode();
   const { onFileDrop, onBrowseFile } = props;
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState("");
@@ -63,6 +67,7 @@ export const Drop = (props: DropPropsType) => {
   };
 
   const dropClasses = cn(st.drop, {
+    [st["drop--dark"]]: isDarkMode,
     [st["drop--dragging"]]: isDragging,
     [st["drop--error"]]: error,
   });

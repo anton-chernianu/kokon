@@ -1,5 +1,6 @@
 // Core
 import React, { useCallback, useEffect, useState } from "react";
+import cn from "classnames";
 
 // Components
 import { Toolbar } from "./components/Toolbar";
@@ -11,12 +12,13 @@ import { ModalView } from "./components/Modal";
 
 // Hooks
 import { useExtractFile } from "./hooks/use-extract-file";
+import { useDarkMode } from "./context/DarkModeProvider";
 
 // Constants
 import { ERROR_STATUS_CODE } from "../constants/error-status-codes";
 
 // Styles
-import "../assets/app.scss";
+import "@/assets/styles/app.scss";
 
 type FileStateType = {
   filePath: string;
@@ -33,6 +35,7 @@ const INITIAL_FILE_STATE: FileStateType = {
 };
 
 function App() {
+  const { isDarkMode } = useDarkMode();
   const { onExtractFile, isLoading } = useExtractFile();
   const [fileState, setFileState] = useState<FileStateType>(INITIAL_FILE_STATE);
   const [modalType, setModalType] = useState<
@@ -95,8 +98,12 @@ function App() {
     setModalType(null);
   };
 
+  const appStyles = cn("app", {
+    "app--dark": isDarkMode,
+  });
+
   return (
-    <div className={"app"}>
+    <div className={appStyles}>
       <div className={"app__toolbar"}>
         <Toolbar />
       </div>

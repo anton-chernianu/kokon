@@ -1,5 +1,9 @@
 // Core
 import { useEffect, useRef, useState } from "react";
+import cn from "classnames";
+
+// Hooks
+import { useDarkMode } from "../../../../context/DarkModeProvider";
 
 // Styles
 import st from "./styles.module.scss";
@@ -13,6 +17,7 @@ type PasswordRequiredFormProps = {
 export const PasswordRequiredForm = (props: PasswordRequiredFormProps) => {
   const { onSubmit, loading, errorMessage = "" } = props;
 
+  const { isDarkMode } = useDarkMode();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [password, setPassword] = useState("");
@@ -32,8 +37,12 @@ export const PasswordRequiredForm = (props: PasswordRequiredFormProps) => {
     onSubmit?.({ password });
   };
 
+  const passwordRequiredFormStyles = cn(st["password-required-form"], {
+    [st["password-required-form--dark"]]: isDarkMode,
+  });
+
   return (
-    <div className={st["password-required-form"]}>
+    <div className={passwordRequiredFormStyles}>
       <div className={st["password-required-form__content"]}>
         <p className={st["password-required-form__description"]}>
           This file is password protected. <br /> Please enter the password to extract the contents.

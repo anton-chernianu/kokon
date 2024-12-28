@@ -1,5 +1,11 @@
+// Core
+import cn from "classnames";
+
 // Icons
 import { AddIcon, ExtractIcon, RemoveIcon } from "./icons";
+
+// Hooks
+import { useDarkMode } from "../../context/DarkModeProvider";
 
 // Styles
 import st from "./styles.module.scss";
@@ -12,6 +18,7 @@ type MenuPropsType = {
 };
 
 export const Menu = (props: MenuPropsType) => {
+  const { isDarkMode } = useDarkMode();
   const { onSelect, onExtract, onRemove, filePath = "" } = props;
 
   const handleSelect = () => {
@@ -26,8 +33,12 @@ export const Menu = (props: MenuPropsType) => {
     onRemove?.();
   };
 
+  const menuStyles = cn(st.menu, {
+    [st["menu--dark"]]: isDarkMode,
+  });
+
   return (
-    <div className={st.menu}>
+    <div className={menuStyles}>
       <div className={st["menu__left"]}>
         <button type={"button"} className={st["menu__button"]} onClick={handleSelect}>
           <span className={st["menu__button-icon"]}>

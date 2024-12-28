@@ -79,4 +79,21 @@
     margin-top: 10px;
     width: 180px;
   }
+
+  &--dark {
+    border-color: #434343;
+
+    &.drop--dragging {
+      background-color: #2e2e2e;
+      border-color: #007bff;
+    }
+
+    .drop__title {
+      color: #d0d0d0;
+    }
+
+    .drop__icon {
+      color: #007bff;
+    }
+  }
 }

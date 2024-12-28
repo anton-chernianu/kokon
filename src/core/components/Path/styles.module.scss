@@ -27,4 +27,20 @@
     font-weight: 700;
     margin: 0 2px;
   }
+
+  &--dark {
+    background: #282828;
+    box-shadow:
+      20px 20px 60px #131313,
+      -20px -20px 60px #1c1c1c;
+    border: 1px solid #2c2c2c;
+
+    .path__text {
+      color: #ffffff;
+    }
+
+    .path__separator {
+      color: #ffffff;
+    }
+  }
 }

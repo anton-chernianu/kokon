@@ -1,0 +1,5 @@
+@mixin dark {
+  .app--dark {
+    @content;
+  }
+}

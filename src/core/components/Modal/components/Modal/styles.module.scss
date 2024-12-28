@@ -37,4 +37,17 @@
     justify-content: center;
     align-items: center;
   }
+
+  &--dark {
+    .modal__overlay {
+      background: rgba(26, 26, 26, 0.4);
+    }
+
+    .modal__container {
+      background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+      box-shadow:
+        10px 20px 30px rgba(0, 0, 0, 0.47),
+        -0px -20px 60px #2a2a2a;
+    }
+  }
 }

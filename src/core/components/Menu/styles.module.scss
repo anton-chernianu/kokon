@@ -60,4 +60,43 @@
     font-size: 12px;
     font-weight: 500;
   }
+
+  &--dark {
+    .menu__button {
+      background: #303030;
+      box-shadow:
+        20px 20px 60px #292929,
+        -20px -20px 60px #303030;
+
+      &:hover {
+        background: #292929;
+        box-shadow:
+          20px 20px 60px #292929,
+          -20px -20px 60px #3f3f3f;
+      }
+
+      &:disabled {
+        pointer-events: none;
+        opacity: 0.5;
+        background: linear-gradient(145deg, #2b2b2b, #3a3a3a);
+        box-shadow: 10px 20px 30px rgba(43, 43, 43, 0.3);
+
+        .menu__button-icon {
+          color: #2b2b2b;
+        }
+
+        .menu__button-name {
+          color: #2b2b2b;
+        }
+      }
+    }
+
+    .menu__button-icon {
+      color: #007bff;
+    }
+
+    .menu__button-name {
+      color: #fff;
+    }
+  }
 }

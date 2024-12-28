@@ -1,6 +1,10 @@
 // Core
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
+import cn from "classnames";
+
+// Hooks
+import { useDarkMode } from "../../context/DarkModeProvider";
 
 // Styles
 import st from "./styles.module.scss";
@@ -19,6 +23,7 @@ type OpenStateType = {
 
 export const FileManager = (props: FileManagerPropsType) => {
   const { filePath } = props;
+  const { isDarkMode } = useDarkMode();
   const [directories, setDirectories] = useState<DirectoryType | null>(null);
   const [openState, setOpenState] = useState<OpenStateType>({});
 
@@ -106,8 +111,12 @@ export const FileManager = (props: FileManagerPropsType) => {
     return null;
   }
 
+  const fileManagerStyles = cn(st["file-manager"], {
+    [st["file-manager--dark"]]: isDarkMode,
+  });
+
   return (
-    <div className={st["file-manager"]}>
+    <div className={fileManagerStyles}>
       <div className={st["file-manager__container"]}>
         <div className={st["file-manager__head"]}>
           <div className={st["file-manager__head-name"]}>Name</div>

@@ -90,4 +90,12 @@
       }
     }
   }
+
+  &--dark {
+    .modal-success__button {
+      box-shadow:
+        5px 10px 20px rgba(0, 0, 0, 0.3),
+        -0px -10px 30px #2a2a2a;
+    }
+  }
 }

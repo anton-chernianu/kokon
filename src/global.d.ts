@@ -16,6 +16,7 @@ declare global {
       on: (channel: string, listener: (event: any, ...args: any[]) => void) => void;
       removeListener: (channel: string, listener: (event: any, ...args: any[]) => void) => void;
       openDirectory: (filePath: string) => void;
+      getSystemTheme: () => Promise<"dark" | "light">;
     };
   }
 

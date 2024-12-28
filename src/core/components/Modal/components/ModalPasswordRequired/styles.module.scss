@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: center;
   }
+
   &__description {
     font-size: 16px;
     font-weight: 500;
@@ -12,9 +13,11 @@
     margin-bottom: 15px;
     line-height: 20px;
   }
+
   &__field {
     width: 100%;
   }
+
   &__input {
     width: 100%;
     padding: 10px;
@@ -31,6 +34,7 @@
       outline: 2px solid #4c7ee7;
     }
   }
+
   &__error {
     min-height: 12px;
     font-size: 10px;
@@ -40,6 +44,7 @@
     justify-content: flex-end;
     margin-bottom: 10px;
   }
+
   &__button {
     width: 100%;
     padding: 10px 20px;
@@ -69,6 +74,18 @@
       opacity: 0.5;
       background: linear-gradient(145deg, #4c7ee7, #5a8ee6);
       box-shadow: 10px 20px 30px rgba(76, 126, 231, 0.3);
+    }
+  }
+
+  &--dark {
+    .password-required-form__description {
+      color: #fff;
+    }
+
+    .password-required-form__button {
+      box-shadow:
+        5px 10px 20px rgba(0, 0, 0, 0.3),
+        -0px -10px 30px #2a2a2a;
     }
   }
 }

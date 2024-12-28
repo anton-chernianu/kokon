@@ -21,4 +21,5 @@ contextBridge.exposeInMainWorld("electronAPI", {
     ipcRenderer.removeListener(channel, callback);
   },
   openDirectory: filePath => ipcRenderer.invoke("open-directory", filePath),
+  getSystemTheme: () => ipcRenderer.invoke("get-system-theme"),
 });

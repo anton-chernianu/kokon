@@ -1,3 +1,9 @@
+// Core
+import cn from "classnames";
+
+// Hooks
+import { useDarkMode } from "../../context/DarkModeProvider";
+
 // Styles
 import st from "./styles.module.scss";
 
@@ -7,6 +13,8 @@ type PathPropsType = {
 
 export const Path = (props: PathPropsType) => {
   const { filePath } = props;
+
+  const { isDarkMode } = useDarkMode();
 
   const formattedPath = filePath.split("/").map((item, index) => {
     if (index === 0) {
@@ -21,8 +29,12 @@ export const Path = (props: PathPropsType) => {
     );
   }, []);
 
+  const pathStyles = cn(st.path, {
+    [st["path--dark"]]: isDarkMode,
+  });
+
   return (
-    <div className={st.path}>
+    <div className={pathStyles}>
       <div className={st["path__text"]}>
         <p>{formattedPath}</p>
       </div>
