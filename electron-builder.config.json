@@ -1,19 +1,12 @@
 {
   "asar": true,
   "appId": "com.antony.kokon",
-  "files": [
-    "dist/frontend/**/*",
-    "src/app.js",
-    "src/preload.js",
-    "src/worker/**/*"
-  ],
+  "files": ["dist/frontend/**/*", "dist/app.js", "dist/preload.js", "dist/worker/**/*"],
   "mac": {
     "target": [
       {
         "target": "dmg",
-        "arch": [
-          "arm64"
-        ]
+        "arch": ["arm64"]
       }
     ],
     "category": "public.app-category.utilities",

@@ -1,6 +1,6 @@
 {
   "name": "kokon",
-  "main": "src/app.js",
+  "main": "dist/app.js",
   "license": "MIT",
   "version": "1.1.0",
   "author": "Anton Cherninanu <anton@chernianu.com>",
@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "start": "concurrently \"npm run start:vite\" \"npm run start:electron\"",
-    "start:electron": "electron .",
+    "start:electron": "tsc && electron --experimental-modules .",
     "start:vite": "vite",
     "build": "npm run build:ui && electron-builder -c electron-builder.config.json",
     "build:ui": "vite build",
