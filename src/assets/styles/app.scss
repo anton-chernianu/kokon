@@ -32,6 +32,11 @@ body {
     margin-top: 15px;
   }
 
+  &__settings {
+    margin-top: 15px;
+    height: calc(100vh - 90px);
+  }
+
   &--dark {
     background: #2b2b2b;
     color: #e2e2e2;

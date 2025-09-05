@@ -18,6 +18,13 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({ children }) 
   useEffect(() => {
     (async () => {
       try {
+        // Сначала проверяем есть ли сохраненная настройка пользователя
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme !== null) {
+          setIsDarkMode(savedTheme === "dark");
+          return;
+        }
+
         const theme = await window.electronAPI.getSystemTheme();
         setIsDarkMode(theme === "dark");
       } catch (e) {
@@ -27,7 +34,11 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({ children }) 
   }, []);
 
   const toggleDarkMode = () => {
-    setIsDarkMode(prev => !prev);
+    setIsDarkMode(prev => {
+      const newValue = !prev;
+      localStorage.setItem("theme", newValue ? "dark" : "light");
+      return newValue;
+    });
   };
 
   if (isDarkMode === null) {

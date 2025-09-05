@@ -9,6 +9,7 @@ import { Path } from "./components/Path";
 import { Drop } from "./components/Drop";
 import { FileManager } from "./components/FileManager";
 import { ModalView } from "./components/Modal";
+import { Settings } from "./components/Settings";
 
 // Hooks
 import { useExtractFile } from "./hooks/use-extract-file";
@@ -41,6 +42,7 @@ function App() {
   const [modalType, setModalType] = useState<
     "PASSWORD_REQUIRED" | "SUCCESS" | "FILE_PROGRESS" | null
   >(null);
+  const [showSettings, setShowSettings] = useState(false);
 
   const updateFileState = useCallback(
     (updates: Partial<FileStateType>) => setFileState(prevState => ({ ...prevState, ...updates })),
@@ -98,6 +100,14 @@ function App() {
     setModalType(null);
   };
 
+  const handleShowSettings = () => {
+    setShowSettings(true);
+  };
+
+  const handleBackFromSettings = () => {
+    setShowSettings(false);
+  };
+
   const appStyles = cn("app", {
     "app--dark": isDarkMode,
   });
@@ -108,27 +118,36 @@ function App() {
         <Toolbar />
       </div>
       <div className={"app__content"}>
-        <div className={"app__menu"}>
-          <Menu
-            onSelect={handleSelectFile}
-            onExtract={handleExtractFile}
-            onRemove={handleResetFile}
-            filePath={fileState.filePath}
-          />
-        </div>
-
-        {!fileState.filePath ? (
-          <div className={"app__drop"}>
-            <Drop onFileDrop={handleFileDrop} onBrowseFile={handleSelectFile} />
+        {showSettings ? (
+          <div className={"app__settings"}>
+            <Settings onBack={handleBackFromSettings} />
           </div>
         ) : (
           <>
-            <div className={"app__filepath"}>
-              <Path filePath={fileState.filePath} />
+            <div className={"app__menu"}>
+              <Menu
+                onSelect={handleSelectFile}
+                onExtract={handleExtractFile}
+                onRemove={handleResetFile}
+                onSettings={handleShowSettings}
+                filePath={fileState.filePath}
+              />
             </div>
-            <div className={"app__manager"}>
-              <FileManager filePath={fileState.filePath} />
-            </div>
+
+            {!fileState.filePath ? (
+              <div className={"app__drop"}>
+                <Drop onFileDrop={handleFileDrop} onBrowseFile={handleSelectFile} />
+              </div>
+            ) : (
+              <>
+                <div className={"app__filepath"}>
+                  <Path filePath={fileState.filePath} />
+                </div>
+                <div className={"app__manager"}>
+                  <FileManager filePath={fileState.filePath} />
+                </div>
+              </>
+            )}
           </>
         )}
 

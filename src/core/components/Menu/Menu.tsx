@@ -2,7 +2,7 @@
 import cn from "classnames";
 
 // Icons
-import { AddIcon, ExtractIcon, RemoveIcon } from "./icons";
+import { AddIcon, ExtractIcon, RemoveIcon, SettingsIcon } from "./icons";
 
 // Hooks
 import { useDarkMode } from "../../context/DarkModeProvider";
@@ -14,12 +14,13 @@ type MenuPropsType = {
   onSelect: () => void;
   onExtract: () => void;
   onRemove: () => void;
+  onSettings: () => void;
   filePath?: string;
 };
 
 export const Menu = (props: MenuPropsType) => {
   const { isDarkMode } = useDarkMode();
-  const { onSelect, onExtract, onRemove, filePath = "" } = props;
+  const { onSelect, onExtract, onRemove, onSettings, filePath = "" } = props;
 
   const handleSelect = () => {
     onSelect?.();
@@ -31,6 +32,10 @@ export const Menu = (props: MenuPropsType) => {
 
   const handleRemove = () => {
     onRemove?.();
+  };
+
+  const handleSettings = () => {
+    onSettings?.();
   };
 
   const menuStyles = cn(st.menu, {
@@ -60,6 +65,12 @@ export const Menu = (props: MenuPropsType) => {
       </div>
 
       <div className={st["menu__right"]}>
+        <button type={"button"} className={st["menu__button"]} onClick={handleSettings}>
+          <span className={st["menu__button-icon"]}>
+            <SettingsIcon />
+          </span>
+          <span className={st["menu__button-name"]}>Settings</span>
+        </button>
         <button
           type={"button"}
           className={st["menu__button"]}
