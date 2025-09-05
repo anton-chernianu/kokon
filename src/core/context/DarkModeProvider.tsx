@@ -18,7 +18,6 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({ children }) 
   useEffect(() => {
     (async () => {
       try {
-        // Сначала проверяем есть ли сохраненная настройка пользователя
         const savedTheme = localStorage.getItem("theme");
         if (savedTheme !== null) {
           setIsDarkMode(savedTheme === "dark");
