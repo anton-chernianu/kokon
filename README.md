@@ -1,6 +1,8 @@
+
+
 <h1 align="center">
   <br>
-    <img src="https://raw.githubusercontent.com/anton-chernianu/kokon/refs/heads/main/assets/512.png" alt="WebTorrent" width="200">
+    <img src="https://raw.githubusercontent.com/anton-chernianu/kokon/refs/heads/main/assets/512.png" alt="Kokon" width="200">
   <br>
   Kokon
 </h1>
